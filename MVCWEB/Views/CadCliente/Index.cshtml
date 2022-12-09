@@ -1,0 +1,150 @@
+﻿@model  IEnumerable<MVCWEB.Models.CadastroClienteViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
+
+@using (Html.BeginForm("Index", "CadCliente", FormMethod.Get))
+{
+    <div class="container-fluid" style="max-width: 100%;">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" style="text-transform: uppercase;"><a href="#">Cadastro Cliente</a></li>
+                <li class="breadcrumb-item active" style="text-transform: uppercase;" aria-current="page">Consultar</li>
+            </ol>
+        </nav>
+
+
+
+        <br />
+        <div class="table-responsive">
+            <br />
+            <table id="tabela" class="tabela table table-striped table-bordered table-hover" cellspacing="0">
+                <thead style="color:chocolate; background-color:aquamarine">
+                    <tr style="color:brown; background-color:burlywood">
+                        <th>
+
+                            @Html.DisplayNameFor(model => model.ClienteId)
+                        </th>
+                        <th>
+
+                            @Html.DisplayNameFor(model => model.CPF)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nome)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RG)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Sexo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Estado_Civil)
+                        </th>
+
+                        <th>Visualizar</th>
+                        <th>Excluir</th>
+                    </tr>
+                  
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+
+                        if (item.ClienteId != null && item.ClienteId > 0)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClienteId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CPF)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RG)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Sexo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Estado_Civil)
+                                </td>
+                                <td>
+                                    @Html.ActionLink(" ", "Details", "CadCliente", new { id = item.ClienteId }, new { @class = "btn btn-default class glyphicon glyphicon-eye-open" })
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Excluir ", "Delete", "CadCliente", new { id = item.ClienteId }, new { @class = "btn btn-default" })
+                                </td>
+                            </tr>
+                            <tr>
+                                @if (item.listaEndere != null && item.listaEndere.Count() > 0)
+                                {
+                                    foreach (var itemEndereco in item.listaEndere)
+                                    {
+                                        <td colspan="7">
+                                            <h6>Endereco</h6>
+                                            <table id="tabela" class="tabela table table-striped  table-condensed " cellspacing="0">
+                                                <thead style="color:blue; background-color:aquamarine">
+                                                    <tr>
+                                                        <th>
+                                                            Rua;
+                                                        </th>
+                                                        <th>
+                                                            Numero;
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(Model => itemEndereco.Logradouro);
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(Model => itemEndereco.Numero);
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    }
+                                }
+                            </tr>
+                        }
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @Html.ActionLink("Novo Cliente", "Create", "CadCliente", new { Model }, new { @class = "btn btn-default" })
+
+}
+
+<script>
+    $(function () {
+        $("#accordion").accordion();
+    });
+</script>
+
+
+
